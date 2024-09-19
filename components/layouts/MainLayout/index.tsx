@@ -15,7 +15,7 @@ export const MainLayout = ({children}: PropsWithChildren) => {
     />
     <div className="lg:w-[1054px] w-auto flex flex-col items-center">
     <Header/>
-    <Container className="mt-10">
+    <Container className="lg:mt-6 mt-4 ">
       {children}
     </Container>
     </div>
