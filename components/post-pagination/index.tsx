@@ -29,7 +29,7 @@ export const PostPagination = () => {
 
   return <>
     {posts.map(post => (<PostDefault key={post.content} post={post}/>))}
-    <div className="w-full flex flex-col items-center gap-3 lg:h-32 h-16 " ref={ref}>
+    <div className="w-full flex flex-col items-center gap-3 lg:h-32 h-28 " ref={ref}>
       <Loading/>
       <Footer />
     </div>
