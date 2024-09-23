@@ -1,2 +1,2 @@
-export * from "./PostSocial"
-export * from "./PostDefault"
+export * from './PostSocial';
+export * from './PostDefault';
