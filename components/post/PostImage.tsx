@@ -1,6 +1,5 @@
 'use client';
 
-import FsLightbox from 'fslightbox-react';
 import { useState } from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import Carousel from 'react-multi-carousel';
