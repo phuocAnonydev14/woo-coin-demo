@@ -36,7 +36,7 @@ export const PostDefault = (props: PostProps) => {
       <div className="flex flex-col gap-3">
         {!isDetailPage ?
           <Link href={`/posts/${slug}`}>
-              <h2 className="text-xl font-semibold">{title} </h2>
+              <h2 className="text-xl font-semibold mb-3">{title} </h2>
             <p>{content}</p>
           </Link>
         : <div className="flex flex-col gap-4">
