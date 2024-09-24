@@ -1,6 +1,6 @@
 import {Post} from '@/types/app.type';
 
-export const mockPosts: Post[] = [
+export const mockPosts = [
   {
     title: 'Exploring TypeScript',
     content:
