@@ -1,41 +1,55 @@
 'use client';
 
-import { Loading } from '@/components/common/Loading';
-import { useEffect, useState } from 'react';
-import { Post as PostType } from '@/types/app.type';
-import { PostDefault } from '@/components/post/PostDefault';
-import { mockPosts } from '@/mocks/post';
-import { useInView } from 'react-intersection-observer';
-import { Footer } from '@/components/layouts/MainLayout/Footer';
+import {Loading} from '@/components/common/Loading';
+import {useCallback, useEffect, useState} from 'react';
+import {Pagination, Post as PostType} from '@/types/app.type';
+import {PostDefault} from '@/components/post/PostDefault';
+import {useInView} from 'react-intersection-observer';
+import {Footer} from '@/components/layouts/MainLayout/Footer';
+import {postService} from "@/services/post.service";
 
-export const PostPagination = () => {
+interface PostPaginationProps {
+  pagination: Pagination;
+}
+
+export const PostPagination = (props: PostPaginationProps) => {
+  const {pagination} = props
   const [posts, setPosts] = useState<PostType[]>([]);
-  const { ref, inView } = useInView();
+  const {ref, inView} = useInView();
+  const [page, setPage] = useState(pagination.page || 1);
+  const [hasMore, setHasMore] = useState(pagination.page < pagination.pages);
 
-  const handleLoadMorePost = async () => {
+  const handleLoadMorePost = useCallback(async () => {
     try {
-      await new Promise<void>((resolve) => setTimeout(resolve, 1000));
-      setPosts((posts) => [...posts, ...mockPosts]);
+      const postsRes = await postService.getAllPosts(page + 1)
+      if(!postsRes) return
+      await new Promise(resolve => {setTimeout(resolve,500)})
+      setPage(state => state + 1)
+      setHasMore((postsRes.meta?.pagination?.pages || 0) > (postsRes.meta?.pagination?.page || 0))
+      setPosts(posts =>  ([...posts,...postsRes.posts]))
+      return postsRes.posts
     } catch (e) {
-      console.log(e);
+      console.log(e)
+      return []
     }
-  };
+  },[page])
 
   useEffect(() => {
     if (inView) {
       handleLoadMorePost().then();
     }
-  }, [inView]);
+  }, [inView, hasMore, handleLoadMorePost]);
 
   return (
     <>
       {posts.map((post) => (
-        <PostDefault key={post.content} post={post} />
+        <PostDefault key={post.excerpt} post={post}/>
       ))}
-      <div className="flex h-16 w-full flex-col items-center gap-3 lg:h-32" ref={ref}>
-        <Loading />
-        <Footer />
+      {hasMore && <div className="flex h-16 w-full flex-col items-center gap-3 lg:h-32" ref={ref}>
+        <Loading/>
+        <Footer/>
       </div>
+      }
     </>
   );
 };

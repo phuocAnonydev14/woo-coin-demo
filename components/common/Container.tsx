@@ -6,7 +6,7 @@ export const Container = ({
   ...props
 }: PropsWithChildren & HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div {...props} className={cn('w-auto md:w-[638px]', props.className)}>
+    <div {...props} className={cn('w-[90dvw] md:w-[638px] overflow-hidden', props.className)}>
       {children}
     </div>
   );

@@ -32,15 +32,17 @@ export const Header = () => {
   }, [pathname]);
 
   return (
-    <div className="sticky top-0 flex w-full items-center justify-between overflow-hidden bg-white py-2">
+    <div className="sticky top-0 z-20 flex w-full items-center justify-between overflow-hidden bg-white py-2">
       <div>
-        <img className="h-[48px] w-[48px] rounded-full" src="/images/logo.png" alt="User avatar"/>
+        <Link href={"/"}>
+          <img className="h-[48px] w-[48px] rounded-full" src="/images/logo.png" alt="User avatar"/>
+        </Link>
       </div>
       <div className={cn('relative hidden w-[638px] items-center justify-center gap-6 md:flex')}>
         <ArrowLeftIcon
           onClick={() => router.back()}
           className={cn(
-            'absolute left-0 flex items-center justify-center rounded-[8px] opacity-0 transition',
+            'absolute left-[4px] flex items-center justify-center rounded-[8px] opacity-0 transition',
             isShowBackArrow && 'cursor-pointer opacity-100',
           )}
         />

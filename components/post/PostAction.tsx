@@ -13,10 +13,10 @@ interface PostActionProps {
 
 export const PostAction = (props: PostActionProps) => {
   const { post, isComment } = props;
-  const { likeCount, commentCount, shareCount, createdAt } = post;
-  const [likeState, setLikeState] = useState<number>(likeCount);
-  const [isLiked, setIsLiked] = useState<boolean>(post.isLiked);
-  const [isBookmarked, setIsBookmarked] = useState<boolean>(post.isBookmarked);
+  const { likeCount, commentCount, shareCount, published_at } = post;
+  const [likeState, setLikeState] = useState<number>(likeCount || 0);
+  const [isLiked, setIsLiked] = useState<boolean>(!!post.isLiked);
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(!!post.isBookmarked);
 
   return (
     <div className="flex w-full justify-between">
@@ -24,7 +24,7 @@ export const PostAction = (props: PostActionProps) => {
         {!isComment && (
           <div className="flex items-center gap-1">
             <CalendarIcon className="cursor-pointer" />
-            <p>{formatDate(createdAt)}</p>
+            <p>{formatDate(published_at)}</p>
           </div>
         )}
         <div className="flex items-center gap-1">
