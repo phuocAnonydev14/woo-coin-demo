@@ -102,7 +102,6 @@ export const PostImage = (props: PostImageProps) => {
             </Carousel>
           </div>
         ))}
-      {/*<FsLightbox toggler={toggler} sources={typeof images === "string" ? [`${images}`] : images}/>*/}
     </div>
   );
 };
@@ -142,6 +141,8 @@ const ImgBox = ({
         'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px]',
         isDetailPage && 'h-auto w-full',
       )}
+      hideDownload
+      hideZoom
     />
   );
 };
