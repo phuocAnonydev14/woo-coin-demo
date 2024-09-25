@@ -2,7 +2,7 @@
 
 import {Loading} from '@/components/common/Loading';
 import {useCallback, useEffect, useState} from 'react';
-import {Pagination, Post as PostType} from '@/types/app.type';
+import { Pagination, Post, Post as PostType } from '@/types/app.type';
 import {PostDefault} from '@/components/post/PostDefault';
 import {useInView} from 'react-intersection-observer';
 import {Footer} from '@/components/layouts/MainLayout/Footer';
@@ -10,10 +10,11 @@ import {postService} from "@/services/post.service";
 
 interface PostPaginationProps {
   pagination: Pagination;
+  currentPost: Post[]
 }
 
 export const PostPagination = (props: PostPaginationProps) => {
-  const {pagination} = props
+  const {pagination, currentPost} = props
   const [posts, setPosts] = useState<PostType[]>([]);
   const {ref, inView} = useInView();
   const [page, setPage] = useState(pagination.page || 1);
@@ -25,8 +26,9 @@ export const PostPagination = (props: PostPaginationProps) => {
       if(!postsRes) return
       await new Promise(resolve => {setTimeout(resolve,500)})
       setPage(state => state + 1)
-      setHasMore((postsRes.meta?.pagination?.pages || 0) > (postsRes.meta?.pagination?.page || 0))
-      setPosts(posts =>  ([...posts,...postsRes.posts]))
+      setPosts(post => [...post,...currentPost])
+      // setHasMore((postsRes.meta?.pagination?.pages || 0) > (postsRes.meta?.pagination?.page || 0))
+      // setPosts(posts =>  ([...posts,...postsRes.posts]))
       return postsRes.posts
     } catch (e) {
       console.log(e)

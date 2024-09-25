@@ -23,7 +23,7 @@ export default async function Home() {
       {posts.map((post) => (
         <PostDefault key={post.excerpt} post={post}/>
       ))}
-      {metaData?.pagination && <PostPagination pagination={metaData.pagination}/>}
+      {metaData?.pagination && <PostPagination currentPost={posts} pagination={metaData.pagination}/>}
     </div>
   );
 }
