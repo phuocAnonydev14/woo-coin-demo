@@ -42,7 +42,7 @@ export const PostDefault = (props: PostProps) => {
             <h2 className="text-2xl font-semibold">{title} </h2>
             <p>{content}</p>
             <PostImage isDetailPage images={post.feature_image}/>
-            <div>{parse(filterHtmlString(html))}</div>
+            <div className="flex flex-col gap-y-1.5">{parse(filterHtmlString(html))}</div>
           </div>}
       </div>
       {/*<PostTag/>*/}
