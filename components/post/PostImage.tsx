@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import {useState} from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import Carousel from 'react-multi-carousel';
-import { cn } from '@/lib/utils';
+import {cn} from '@/lib/utils';
 import ModalImage from 'react-modal-image';
 
 interface PostImageProps {
@@ -12,7 +12,7 @@ interface PostImageProps {
 }
 
 export const PostImage = (props: PostImageProps) => {
-  const { images, isDetailPage } = props;
+  const {images, isDetailPage} = props;
   const [toggler, setToggler] = useState(false);
   return (
     <div className="w-full overflow-hidden">
@@ -68,13 +68,13 @@ export const PostImage = (props: PostImageProps) => {
                   partialVisibilityGutter: 40,
                 },
                 tablet: {
-                  breakpoint: { max: 1024, min: 768 },
+                  breakpoint: {max: 1024, min: 768},
                   items: 2,
                   slidesToSlide: 1, // optional, default to 1.,
                   partialVisibilityGutter: 40,
                 },
                 mobile: {
-                  breakpoint: { max: 767, min: 100 },
+                  breakpoint: {max: 767, min: 100},
                   items: 2,
                   slidesToSlide: 1, // optional, default to 1.
                   partialVisibilityGutter: 10,
@@ -106,33 +106,14 @@ export const PostImage = (props: PostImageProps) => {
 };
 
 const ImgBox = ({
-  image,
-  setToggler,
-  isDetailPage,
-}: {
+                  image,
+                  isDetailPage,
+                }: {
   image: string;
   setToggler: () => void;
   isDetailPage?: boolean;
 }) => {
   return (
-    // <img
-    //   style={{ userSelect: 'none', msUserSelect: 'none' }}
-    //   className={cn(
-    //     'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px]',
-    //     isDetailPage && 'h-auto w-full',
-    //   )}
-    //   src={image}
-    //   alt="test"
-    //   onClick={() => {
-    //     setToggler();
-    //     // fetch(`https://cors-anywhere.herokuapp.com/${image}`)
-    //     //   .then(response => response.blob())
-    //     //   .then(imageBlob => {
-    //     //     const imageObjectURL = URL.createObjectURL(imageBlob);
-    //     //     console.log(imageObjectURL);
-    //     //   });
-    //   }}
-    // />
     <ModalImage
       small={image}
       large={image}

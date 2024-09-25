@@ -5,6 +5,7 @@ import { formatDate } from '@/lib/utils';
 import { BookmarkAddIcon } from '@/components/icons/BookmarkAddIcon';
 import { Post } from '@/types/app.type';
 import { useState } from 'react';
+import {PostShare} from "@/components/post/PostShare";
 
 interface PostActionProps {
   post: Post;
@@ -42,10 +43,12 @@ export const PostAction = (props: PostActionProps) => {
           <CommentIcon className="cursor-pointer" />
           <p>{commentCount}</p>
         </div>
+        <PostShare slug={post.slug} title={post.title}>
         <div className="flex items-center gap-1">
           <ShareIcon className="cursor-pointer" />
           <p>{shareCount}</p>
         </div>
+        </PostShare>
       </div>
       {!isComment && (
         <BookmarkAddIcon

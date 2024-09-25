@@ -21,3 +21,22 @@ export const getAuthorFromHtml = (html: string) => {
     return authorsMatch[1].trim();
   return ''
 }
+
+export const filterHtmlString = (html: string) => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+// Find all <p> elements
+  const paragraphs = doc.querySelectorAll('p');
+
+// Loop through all <p> elements and check their text content
+  paragraphs.forEach((p) => {
+    if (p?.textContent?.includes('Authors:')) {
+      p.remove(); // Remove the paragraph if it contains "Authors:"
+    }
+  });
+
+// Get the updated HTML as string
+  return doc.body.innerHTML;
+
+}

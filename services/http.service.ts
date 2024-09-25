@@ -60,7 +60,9 @@ class HttpService {
     method: HttpMethodEnum,
     url: string,
     options: AxiosRequestConfig | CacheRequestConfig,
-  ): Promise<T> {
+  ): Promise<T | undefined> {
+    // eslint-disable-next-line no-useless-catch
+    try {
       const response: AxiosResponse<T> = await this.http.request<T>({
         method,
         url,
@@ -68,10 +70,14 @@ class HttpService {
       });
       console.log("response", response)
       return response?.data;
+    } catch (error) {
+      // throw error
+      this.normalizeError(error);
+    }
   }
 
   // Perform GET request
-  public async get<T>(url: string, params?: Params, isPublicApi = false): Promise<T> {
+  public async get<T>(url: string, params?: Params, isPublicApi = false): Promise<T | undefined> {
     return this.request<T>(HttpMethodEnum.GET, url, {
       params,
       headers: this.setupHeaders(false, isPublicApi),
@@ -83,7 +89,7 @@ class HttpService {
   }
 
   // Perform POST request
-  public async post<T, P>(url: string, payload: P, params?: Params, isPublicApi = false): Promise<T> {
+  public async post<T, P>(url: string, payload: P, params?: Params, isPublicApi = false): Promise<T | undefined> {
     return this.request<T>(HttpMethodEnum.POST, url, {
       params,
       data: payload,
@@ -92,7 +98,7 @@ class HttpService {
   }
 
   // Perform UPDATE request
-  public async update<T, P>(url: string, payload: P, params?: Params, isPublicApi = false): Promise<T> {
+  public async update<T, P>(url: string, payload: P, params?: Params, isPublicApi = false): Promise<T | undefined> {
     return this.request<T>(HttpMethodEnum.PATCH, url, {
       params,
       data: payload,
@@ -101,7 +107,7 @@ class HttpService {
   }
 
   // Perform DELETE request
-  public async remove<T>(url: string, params?: Params, isPublicApi = false): Promise<T> {
+  public async remove<T>(url: string, params?: Params, isPublicApi = false): Promise<T | undefined> {
     return this.request<T>(HttpMethodEnum.DELETE, url, {
       params,
       headers: this.setupHeaders(false, isPublicApi),

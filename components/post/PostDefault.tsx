@@ -2,9 +2,8 @@
 import Link from 'next/link';
 import {Post as PostType} from '@/types/app.type';
 import {PostAction} from '@/components/post/PostAction';
-import {PostTag} from '@/components/post/PostTag';
 import {PostImage} from '@/components/post/PostImage';
-import {getAuthorFromHtml} from "@/lib/utils";
+import {filterHtmlString, getAuthorFromHtml} from "@/lib/utils";
 import parse from 'html-react-parser';
 
 export interface PostProps {
@@ -43,9 +42,8 @@ export const PostDefault = (props: PostProps) => {
             <h2 className="text-2xl font-semibold">{title} </h2>
             <p>{content}</p>
             <PostImage isDetailPage images={post.feature_image}/>
-            <div>{parse(html)}</div>
+            <div>{parse(filterHtmlString(html))}</div>
           </div>}
-        {post?.feature_image && !isDetailPage && <PostImage images={post.feature_image}/>}
       </div>
       {/*<PostTag/>*/}
       <PostAction post={post}/>
