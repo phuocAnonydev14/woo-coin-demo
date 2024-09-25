@@ -28,6 +28,7 @@ export async function generateMetadata(
   const post = await handleFetchPostDetail(slug)
   return {
     title: post?.title || '',
+    description: post?.excerpt || '',
     openGraph: {
       images: [logo.src],
     },

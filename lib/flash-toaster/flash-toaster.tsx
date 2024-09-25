@@ -6,7 +6,7 @@ export function FlashToaster() {
   const flash = cookies().get('flash');
   return (
     <>
-      <Toaster />
+      <Toaster position="top-right"/>
       <FlashToasterClient flash={flash?.value} />
     </>
   );
