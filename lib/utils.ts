@@ -22,6 +22,20 @@ export const getAuthorFromHtml = (html: string) => {
   return ''
 }
 
+export const getSourceFromHtml = (html: string) => {
+  const sourceMatch = html.match(/<p>Source:\s*([^<]*)<\/p>/);
+  if(sourceMatch && sourceMatch[1])
+    return sourceMatch[1].trim();
+  return ''
+}
+
+export const getIconFromHtml = (html: string) => {
+  const iconMatch = html.match(/<p>Falvicon:\s*([^<]*)<\/p>/);
+  if(iconMatch && iconMatch[1])
+    return iconMatch[1].trim();
+  return ''
+}
+
 export const filterHtmlString = (html: string) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
@@ -33,6 +47,10 @@ export const filterHtmlString = (html: string) => {
   paragraphs.forEach((p) => {
     if (p?.textContent?.includes('Authors:')) {
       p.remove(); // Remove the paragraph if it contains "Authors:"
+    }if (p?.textContent?.includes('Falvicon:')) {
+      p.remove(); // Remove the paragraph if it contains "Falvicon:"
+    }if (p?.textContent?.includes('Source:')) {
+      p.remove(); // Remove the paragraph if it contains "Source:"
     }
   });
 
