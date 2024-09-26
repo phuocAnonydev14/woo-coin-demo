@@ -14,6 +14,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import {Link} from "lucide-react"
 import { toast } from 'sonner';
+import teleLogo from '@/components/assets/teleLogo.png'
+import twitterLogo from '@/components/assets/twitterLogo.png'
+import Image from 'next/image';
 
 interface PostShareProps extends PropsWithChildren {
   slug: string;
@@ -36,14 +39,14 @@ export const PostShare = (props: PostShareProps) => {
         <DropdownMenuItem onClick={handleCopy}>
           <div className="flex w-[150px] items-center justify-between gap-4">
             <p>Copy link</p>
-            <Link size={22}/>
+            <Link size={20}/>
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem className="w-full">
           <TelegramShareButton className={'w-full'} url={currentUrl} title={title}>
             <div className="flex w-[150px] items-center justify-between gap-4">
               <p>Telegram</p>
-              <TelegramIcon size={24} round />
+              <Image src={teleLogo} alt="" width={20} height={20} objectFit="cover" />
             </div>
           </TelegramShareButton>
         </DropdownMenuItem>
@@ -51,7 +54,7 @@ export const PostShare = (props: PostShareProps) => {
           <TwitterShareButton url={currentUrl} title={title}>
             <div className="flex w-[150px]  items-center justify-between gap-4">
               <p>Twitter</p>
-              <TwitterIcon size={24} round />
+              <Image src={twitterLogo} alt="" width={20} height={20} objectFit="cover" />
             </div>
           </TwitterShareButton>
         </DropdownMenuItem>
