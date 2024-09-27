@@ -5,9 +5,10 @@ import {CheckBadgeIcon, CommentLineIcon} from '@/components/icons';
 import Link from 'next/link';
 import {PostProps} from '@/components/post/PostDefault';
 import {ReactNode} from 'react';
-import {cn, getAuthorFromHtml} from '@/lib/utils';
+import {cn, filterHtmlString, getAuthorFromHtml, getMediaLinkFromHtml, getProfileImageFromHtml} from '@/lib/utils';
 import {PostImage} from '@/components/post/PostImage';
 import moment from 'moment';
+import parse from "html-react-parser";
 
 export const PostSocial = (
   props: PostProps & { isComment?: boolean; CommentChild?: ReactNode },
@@ -17,19 +18,22 @@ export const PostSocial = (
 
   const content = custom_excerpt || excerpt
   const author = getAuthorFromHtml(html)
+  const profileImage = getProfileImageFromHtml(html)
+
+  const mediaLinks = getMediaLinkFromHtml(html)
 
   return (
-    <>
+    <div>
       <div className="flex gap-[8px]">
-        <div>
+        <div className="w-[7%] flex-1">
           <img
-            className="h-6 w-6 rounded-full object-cover"
-            src="https://i.pinimg.com/564x/cb/0a/f5/cb0af57340c9be2d6943d565e198fdb6.jpg"
+            className="h-9 w-9 rounded-full object-cover object-top"
+            src={profileImage || "https://i.pinimg.com/564x/cb/0a/f5/cb0af57340c9be2d6943d565e198fdb6.jpg"}
             alt="User avatar"
           />
           {CommentChild && <CommentLineIcon/>}
         </div>
-        <div className="flex w-full flex-col gap-[17px]">
+        <div className="flex md:w-[93%] w-[90%] flex-col gap-[17px]">
           <div className="flex flex-col gap-[7px]">
             <div className="flex items-center gap-1">
               <span className="flex cursor-pointer items-center gap-1 text-[15px] font-semibold">
@@ -46,11 +50,11 @@ export const PostSocial = (
             </div>
             <div className="flex flex-col gap-3">
               {isDetailPage || isComment ? (
-                <p>{content}</p>
+                <p>{parse(filterHtmlString(html))}</p>
               ) : (
-                <Link href={`posts/${post.slug}`}>{content}</Link>
+                <Link href={`posts/${post.slug}`}><p className="break-words">{parse(filterHtmlString(html))}</p></Link>
               )}
-              {post?.feature_image && post.feature_image.length > 0 && <PostImage images={post.feature_image}/>}
+              {mediaLinks && mediaLinks.length > 0 && <PostImage images={mediaLinks}/>}
             </div>
             {/*{!isComment && <PostTag/>}*/}
           </div>
@@ -60,8 +64,8 @@ export const PostSocial = (
       {CommentChild ? (
         <div className="mt-4">{CommentChild}</div>
       ) : (
-        <div className={cn('mt-3 h-[2px] w-full bg-neutral-200')}/>
+        <div className={cn('h-[2px] mt-[17px] w-full bg-neutral-200')}/>
       )}
-    </>
+    </div>
   );
 };

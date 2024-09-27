@@ -18,7 +18,7 @@ export const PostPagination = (props: PostPaginationProps) => {
   const [posts, setPosts] = useState<PostType[]>([]);
   const {ref, inView} = useInView();
   const [page, setPage] = useState(pagination.page || 1);
-  const [hasMore, setHasMore] = useState(pagination.page < pagination.pages);
+  const [hasMore, setHasMore] = useState(true);
 
   const handleLoadMorePost = useCallback(async () => {
     try {
@@ -26,7 +26,7 @@ export const PostPagination = (props: PostPaginationProps) => {
       if(!postsRes) return
       await new Promise(resolve => {setTimeout(resolve,500)})
       setPage(state => state + 1)
-      setPosts(post => [...post,...currentPost])
+      setPosts(post => [...post,...currentPost.filter((item,index) => (index > (page - 1) * 10) && (index < (page * 10)) )])
       // setHasMore((postsRes.meta?.pagination?.pages || 0) > (postsRes.meta?.pagination?.page || 0))
       // setPosts(posts =>  ([...posts,...postsRes.posts]))
       return postsRes.posts

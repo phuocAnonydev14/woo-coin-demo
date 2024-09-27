@@ -4,7 +4,7 @@ import {useState} from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import Carousel from 'react-multi-carousel';
 import {cn} from '@/lib/utils';
-import ModalImage from 'react-modal-image';
+import{Lightbox} from 'react-modal-image';
 
 interface PostImageProps {
   images: string | string[];
@@ -13,13 +13,14 @@ interface PostImageProps {
 
 export const PostImage = (props: PostImageProps) => {
   const {images, isDetailPage} = props;
-  const [toggler, setToggler] = useState(false);
+  const [selectedImage,setSelectedImage] = useState('')
+
   return (
     <div className="w-full overflow-hidden">
       {typeof images === 'string' && (
         <div className="cursor-pointer">
           <ImgBox
-            setToggler={() => setToggler(!toggler)}
+            setToggler={() => setSelectedImage(images)}
             image={images}
             isDetailPage={isDetailPage}
           />
@@ -31,7 +32,7 @@ export const PostImage = (props: PostImageProps) => {
             {images.map((image) => (
               <div className="mr-2 cursor-pointer" key={image}>
                 <ImgBox
-                  setToggler={() => setToggler(!toggler)}
+                  setToggler={() => setSelectedImage(image)}
                   image={image}
                   isDetailPage={isDetailPage}
                 />
@@ -92,7 +93,7 @@ export const PostImage = (props: PostImageProps) => {
               {images.map((image) => (
                 <div className="mr-2 cursor-grab" key={image}>
                   <ImgBox
-                    setToggler={() => setToggler(!toggler)}
+                    setToggler={() => setSelectedImage(image)}
                     image={image}
                     isDetailPage={isDetailPage}
                   />
@@ -101,6 +102,18 @@ export const PostImage = (props: PostImageProps) => {
             </Carousel>
           </div>
         ))}
+      {selectedImage && <Lightbox
+        small={selectedImage}
+        large={selectedImage}
+        className={cn(
+          'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px]',
+          isDetailPage && 'h-auto w-full',
+        )}
+        hideDownload
+        hideZoom
+        // @ts-expect-error: no type for this attr
+        onClose={() => setSelectedImage('')}
+      />}
     </div>
   );
 };
@@ -108,21 +121,21 @@ export const PostImage = (props: PostImageProps) => {
 const ImgBox = ({
                   image,
                   isDetailPage,
+  setToggler
                 }: {
   image: string;
   setToggler: () => void;
   isDetailPage?: boolean;
 }) => {
   return (
-    <ModalImage
-      small={image}
-      large={image}
+    <img
       className={cn(
         'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px]',
         isDetailPage && 'h-auto w-full',
       )}
-      hideDownload
-      hideZoom
+      onClick={setToggler}
+      src={image}
+      alt="Image"
     />
   );
 };
