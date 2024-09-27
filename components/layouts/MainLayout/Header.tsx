@@ -9,6 +9,8 @@ import {HeaderMenu} from '@/types/layout.type';
 import {usePathname, useRouter} from 'next/navigation';
 import Link from 'next/link';
 import {HeaderMobile} from '@/components/layouts/MainLayout/HeaderMobile';
+import Image from "next/image";
+import logo from "@/components/assets/logo.png"
 
 const backArrowFilter = ['/posts/'];
 
@@ -33,9 +35,18 @@ export const Header = () => {
 
   return (
     <div className="sticky top-0 z-20 flex w-full items-center justify-between overflow-hidden bg-white py-2">
+          <div className="relative md:hidden">
+            <ArrowLeftIcon
+              onClick={() => router.back()}
+              className={cn(
+                'absolute top-[-19px] left-[4px] flex items-center justify-center rounded-[8px] opacity-0 transition',
+                isShowBackArrow && 'cursor-pointer opacity-100',
+              )}
+            />
+          </div>
       <div>
         <Link href={"/"}>
-          <img className="h-[48px] w-[48px] rounded-full" src="/images/logo.png" alt="User avatar"/>
+          <Image width={48} height={48} className="rounded-full" src={logo.src} alt="Wukoin logo"/>
         </Link>
       </div>
       <div className={cn('relative hidden w-[638px] items-center justify-center gap-6 md:flex')}>
