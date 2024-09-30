@@ -80,6 +80,6 @@ export const filterHtmlString = (html: string) => {
   });
 
 // Get the updated HTML as string
-  return doc.body.innerHTML;
+  return doc.body.innerHTML.replace(/https?:\/\/[^\s]+$/, '');
 
 }

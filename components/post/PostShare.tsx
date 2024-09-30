@@ -25,7 +25,7 @@ interface PostShareProps extends PropsWithChildren {
 
 export const PostShare = (props: PostShareProps) => {
   const { children, slug, title } = props;
-  const currentUrl = `${window.location.origin}/posts/${slug}`;
+  const currentUrl = `${window?.location?.origin || ''}/posts/${slug}`;
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(currentUrl);
