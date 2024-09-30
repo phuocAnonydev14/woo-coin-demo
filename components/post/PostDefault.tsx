@@ -31,11 +31,11 @@ export const PostDefault = (props: PostProps) => {
         <div className="flex items-center gap-1">
           <span className="cursor-pointer text-[15px] font-medium">{author}</span>
           <span className="text-neutral-600">by</span>
-          {/*<img*/}
-          {/*  className="h-6 w-6 rounded-full object-cover"*/}
-          {/*  src={icon}*/}
-          {/*  alt="User avatar"*/}
-          {/*/>*/}
+          <img
+            className="h-6 w-6 rounded-full object-cover"
+            src={icon}
+            alt="User avatar"
+          />
           <span className="cursor-pointer text-[15px] font-medium">{source}</span>
         </div>
       </div>

@@ -130,12 +130,13 @@ const ImgBox = ({
   return (
     <img
       className={cn(
-        'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px]',
+        'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px] border-[1px] outline-[#00000026] ',
         isDetailPage && 'h-auto w-full',
       )}
       onClick={setToggler}
       src={image}
       alt="Image"
+      srcSet={image}
     />
   );
 };

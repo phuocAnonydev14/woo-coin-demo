@@ -5,7 +5,7 @@ import {PostPagination} from "@/components/post-pagination";
 
 const handleFetchPosts = async () => {
   try {
-    const postsRes = await postService.getAllPosts(1,399)
+    const postsRes = await postService.getAllPosts(1,999)
     if(!postsRes) return {posts: [], metaData: null}
     return {posts: postsRes.posts.filter(post => {
         const type = getTypeFromHtml(post.html)
@@ -30,7 +30,7 @@ export default async function FeedPage() {
       {posts.map((post) => (
         <PostSocial key={post.title} post={post} />
       ))}
-      {metaData?.pagination && <PostPagination currentPost={posts} pagination={metaData.pagination}/>}
+      {metaData?.pagination && <PostPagination type="social" currentPost={posts} pagination={metaData.pagination}/>}
     </div>
   );
 }

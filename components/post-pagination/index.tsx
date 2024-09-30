@@ -7,14 +7,16 @@ import {PostDefault} from '@/components/post/PostDefault';
 import {useInView} from 'react-intersection-observer';
 import {Footer} from '@/components/layouts/MainLayout/Footer';
 import {postService} from "@/services/post.service";
+import { PostSocial } from '@/components/post';
 
 interface PostPaginationProps {
   pagination: Pagination;
   currentPost: Post[]
+  type?: "default" | "social"
 }
 
 export const PostPagination = (props: PostPaginationProps) => {
-  const {pagination, currentPost} = props
+  const {pagination, currentPost, type = "default"} = props
   const [posts, setPosts] = useState<PostType[]>([]);
   const {ref, inView} = useInView();
   const [page, setPage] = useState(pagination.page || 1);
@@ -45,7 +47,7 @@ export const PostPagination = (props: PostPaginationProps) => {
   return (
     <>
       {posts.map((post) => (
-        <PostDefault key={post.excerpt} post={post}/>
+        type === "default" ? <PostDefault key={post.excerpt} post={post}/> : <PostSocial key={post.excerpt} post={post}/>
       ))}
       {hasMore && <div className="flex h-16 w-full flex-col items-center gap-3 lg:h-32" ref={ref}>
         <Loading/>

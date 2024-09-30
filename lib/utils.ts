@@ -31,7 +31,7 @@ export const getSourceFromHtml = (html: string) => {
 }
 
 export const getIconFromHtml = (html: string) => {
-  return getDataMatchFromHtml(html, /<p>Falvicon:\s*([^<]*)<\/p>/)
+  return getDataMatchFromHtml(html, /<p>Favicon:\s*([^<]*)<\/p>/)
 }
 
 export const getTweetStatusFromHtml = (html: string) => {
