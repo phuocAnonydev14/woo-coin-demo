@@ -15,7 +15,6 @@ const handleFetchPosts = async () => {
         return tweetStatus === "Standard"
       }), metaData: postsRes.meta}
   } catch (e) {
-    console.log(e)
     return {posts: [], metaData: null}
   }
 }

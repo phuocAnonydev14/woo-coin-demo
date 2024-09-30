@@ -137,6 +137,8 @@ const ImgBox = ({
       src={image}
       alt="Image"
       srcSet={image}
+      loading="lazy"
     />
   );
 };
+
