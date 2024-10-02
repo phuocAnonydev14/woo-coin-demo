@@ -25,15 +25,15 @@ export const PostSocial = (
   return (
     <div>
       <div className="flex gap-[8px]">
-        <div className="md:w-[7%] w-[20%] flex-1">
+        <div className="sm:w-fit">
           <img
             className="h-9 w-9 rounded-full object-cover object-top"
             src={profileImage || "https://i.pinimg.com/564x/cb/0a/f5/cb0af57340c9be2d6943d565e198fdb6.jpg"}
             alt="User avatar"
           />
-          {CommentChild && <CommentLineIcon/>}
+          {CommentChild && <CommentLineIcon />}
         </div>
-        <div className="flex md:w-[93%] w-[88%] flex-col gap-[17px]">
+        <div className="flex sm:w-fit flex-col gap-[17px] flex-1">
           <div className="flex flex-col gap-[7px]">
             <div className="flex items-center gap-1">
               <span className="flex cursor-pointer items-center gap-1 text-[15px] font-semibold">
