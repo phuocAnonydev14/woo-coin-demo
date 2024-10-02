@@ -25,7 +25,7 @@ export const PostSocial = (
   return (
     <div>
       <div className="flex gap-[8px]">
-        <div className="w-[7%] flex-1">
+        <div className="md:w-[7%] w-[20%] flex-1">
           <img
             className="h-9 w-9 rounded-full object-cover object-top"
             src={profileImage || "https://i.pinimg.com/564x/cb/0a/f5/cb0af57340c9be2d6943d565e198fdb6.jpg"}
@@ -33,12 +33,12 @@ export const PostSocial = (
           />
           {CommentChild && <CommentLineIcon/>}
         </div>
-        <div className="flex md:w-[93%] w-[90%] flex-col gap-[17px]">
+        <div className="flex md:w-[93%] w-[88%] flex-col gap-[17px]">
           <div className="flex flex-col gap-[7px]">
             <div className="flex items-center gap-1">
               <span className="flex cursor-pointer items-center gap-1 text-[15px] font-semibold">
                 {author}
-                <CheckBadgeIcon/>
+                <CheckBadgeIcon />
               </span>
               {/*<span className="text-neutral-600">by</span>*/}
               {/*<span className="cursor-pointer text-[15px] font-medium">{org}</span>*/}
@@ -54,17 +54,17 @@ export const PostSocial = (
               ) : (
                 <Link href={`posts/${post.slug}`}><p className="break-words">{parse(filterHtmlString(html))}</p></Link>
               )}
-              {mediaLinks && mediaLinks.length > 0 && <PostImage images={mediaLinks}/>}
+              {mediaLinks && mediaLinks.length > 0 && <PostImage images={mediaLinks} />}
             </div>
             {/*{!isComment && <PostTag/>}*/}
           </div>
-          <PostAction post={post} isComment={isComment}/>
+          <PostAction post={post} isComment={isComment} />
         </div>
       </div>
       {CommentChild ? (
         <div className="mt-4">{CommentChild}</div>
       ) : (
-        <div className={cn('h-[2px] mt-[17px] w-full bg-neutral-200')}/>
+        <div className={cn('h-[2px] mt-[17px] w-full bg-neutral-200')} />
       )}
     </div>
   );
