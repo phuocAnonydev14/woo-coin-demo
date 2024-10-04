@@ -2,9 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 import {
-  TelegramIcon,
   TelegramShareButton,
-  TwitterIcon,
   TwitterShareButton,
 } from 'next-share';
 import {
@@ -25,7 +23,7 @@ interface PostShareProps extends PropsWithChildren {
 
 export const PostShare = (props: PostShareProps) => {
   const { children, slug, title } = props;
-  const currentUrl = `${window?.location?.origin || ''}/posts/${slug}`;
+  const currentUrl = `${window.location.origin}/posts/${slug}`;
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(currentUrl);
@@ -37,7 +35,7 @@ export const PostShare = (props: PostShareProps) => {
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
       <DropdownMenuContent className="font-medium ">
         <DropdownMenuItem onClick={handleCopy}>
-          <div className="flex w-[150px] items-center justify-between gap-4">
+          <div className="flex w-[150px] items-center justify-between gap-4 cursor-pointer">
             <p>Copy link</p>
             <Link size={20}/>
           </div>

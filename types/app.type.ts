@@ -12,6 +12,7 @@ export interface Post {
   excerpt: string,
   custom_excerpt?: string,
   reading_time: number
+  tags: Tag[]
 
   // expected field
   type?: 'social' | 'default';
@@ -40,6 +41,13 @@ export interface Pagination {
   total: number,
   next: number | null,
   prev: number | null,
+}
+
+export interface Tag {
+  id: string,
+  name: string,
+  slug: string,
+  description: string,
 }
 
 /*

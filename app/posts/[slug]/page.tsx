@@ -1,4 +1,4 @@
-import { PostDefault, PostSocial } from '@/components/post';
+import { PostDefault } from '@/components/post';
 import {postService} from "@/services/post.service";
 import {Metadata, ResolvingMetadata} from "next";
 import logo from "@/components/assets/logo.png"
@@ -44,11 +44,7 @@ export default async function PostDetailPage({ params: { slug } }: { params: { s
 
   return (
     <div>
-      {slug.includes("-")
-      ?
         <PostDefault post={currentPost} isDetailPage />
-      : <PostSocial post={currentPost} isDetailPage />
-      }
     </div>
   );
 }

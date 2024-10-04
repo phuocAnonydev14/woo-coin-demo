@@ -2,41 +2,42 @@
 
 import {Loading} from '@/components/common/Loading';
 import {useCallback, useEffect, useState} from 'react';
-import { Pagination, Post, Post as PostType } from '@/types/app.type';
+import {Pagination, Post as PostType} from '@/types/app.type';
 import {PostDefault} from '@/components/post/PostDefault';
 import {useInView} from 'react-intersection-observer';
 import {Footer} from '@/components/layouts/MainLayout/Footer';
 import {postService} from "@/services/post.service";
-import { PostSocial } from '@/components/post';
+import {PostEnum} from "@/common/enum/app.enum";
+import {PostSocial} from "@/components/post";
 
 interface PostPaginationProps {
   pagination: Pagination;
-  currentPost: Post[]
-  type?: "default" | "social"
+  fetchPostsEnum: PostEnum
 }
 
 export const PostPagination = (props: PostPaginationProps) => {
-  const {pagination, currentPost, type = "default"} = props
+  const {pagination, fetchPostsEnum} = props
   const [posts, setPosts] = useState<PostType[]>([]);
   const {ref, inView} = useInView();
   const [page, setPage] = useState(pagination.page || 1);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(pagination.page < pagination.pages);
 
   const handleLoadMorePost = useCallback(async () => {
     try {
-      const postsRes = await postService.getAllPosts(page + 1)
-      if(!postsRes) return
-      await new Promise(resolve => {setTimeout(resolve,500)})
+      const postsRes = await (fetchPostsEnum === PostEnum.DEFAULT ? postService.getAllPosts(page + 1) : postService.getAllPostSocials(page + 1))
+      if (!postsRes) return
+      await new Promise(resolve => {
+        setTimeout(resolve, 500)
+      })
       setPage(state => state + 1)
-      setPosts(post => [...post,...currentPost.filter((item,index) => (index > (page - 1) * 10) && (index < (page * 10)) )])
-      // setHasMore((postsRes.meta?.pagination?.pages || 0) > (postsRes.meta?.pagination?.page || 0))
-      // setPosts(posts =>  ([...posts,...postsRes.posts]))
+      setHasMore((postsRes.meta?.pagination?.pages || 0) > (postsRes.meta?.pagination?.page || 0))
+      setPosts(posts => ([...posts, ...postsRes.posts]))
       return postsRes.posts
     } catch (e) {
       console.log(e)
       return []
     }
-  },[page])
+  }, [fetchPostsEnum, page])
 
   useEffect(() => {
     if (inView) {
@@ -47,9 +48,11 @@ export const PostPagination = (props: PostPaginationProps) => {
   return (
     <>
       {posts.map((post) => (
-        type === "default" ? <PostDefault key={post.excerpt} post={post}/> : <PostSocial key={post.excerpt} post={post}/>
+        post.tags[0].slug === "news" ?
+          <PostDefault key={post.excerpt} post={post}/>
+          : <PostSocial key={post.excerpt} post={post}/>
       ))}
-      {hasMore && <div className="flex h-16 w-full flex-col items-center gap-3 lg:h-32" ref={ref}>
+      {hasMore && <div className="flex pb-4 w-full flex-col items-center gap-3" ref={ref}>
         <Loading/>
         <Footer/>
       </div>

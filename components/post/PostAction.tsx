@@ -22,12 +22,6 @@ export const PostAction = (props: PostActionProps) => {
   return (
     <div className="flex w-full justify-between">
       <div className="flex items-center gap-[18px]">
-        {!isComment && (
-          <div className="flex items-center gap-1">
-            <CalendarIcon className="cursor-pointer" />
-            <p>{formatDate(published_at)}</p>
-          </div>
-        )}
         <div className="flex items-center gap-1">
           <HeartIcon
             className="cursor-pointer"
@@ -38,10 +32,6 @@ export const PostAction = (props: PostActionProps) => {
             }}
           />
           <p>{likeState}</p>
-        </div>
-        <div className="flex items-center gap-1">
-          <CommentIcon className="cursor-pointer" />
-          <p>{commentCount}</p>
         </div>
         <PostShare slug={post.slug} title={post.title}>
         <div className="flex items-center gap-1">

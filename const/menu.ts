@@ -10,10 +10,7 @@ export const headerMenus: HeaderMenu[] = [
     href: '/feed',
     icon: FeedIcon,
   },
-  {
-    href: '/news',
-    icon: NewsIcon,
-  },
+
   {
     href: '/bookmarks',
     icon: BookMarkIcon,

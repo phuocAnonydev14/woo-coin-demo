@@ -121,7 +121,7 @@ export const PostImage = (props: PostImageProps) => {
 const ImgBox = ({
                   image,
                   isDetailPage,
-  setToggler
+                  setToggler
                 }: {
   image: string;
   setToggler: () => void;
@@ -130,15 +130,12 @@ const ImgBox = ({
   return (
     <img
       className={cn(
-        'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px] border-[1px] outline-[#00000026] ',
+        'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px] border-[1px] outline-[#00000026]',
         isDetailPage && 'h-auto w-full',
       )}
       onClick={setToggler}
       src={image}
       alt="Image"
-      srcSet={image}
-      loading="lazy"
     />
   );
 };
-

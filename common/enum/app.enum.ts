@@ -4,3 +4,8 @@ export enum HttpMethodEnum  {
   PATCH = 'patch',
   DELETE = 'delete',
 }
+
+export enum PostEnum {
+  DEFAULT = "defaults",
+  SOCIAL = "socials",
+}

@@ -6,6 +6,7 @@ import { ReactNode } from 'react';
 import 'animate.css';
 import {FlashToaster} from "@/lib/flash-toaster";
 import logo from "@/components/assets/logo.png"
+import {GoogleOAuthProvider} from "@react-oauth/google";
 
 export const metadata: Metadata = {
   title: 'Wucoin.co',
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="en">
     <body className={`${proText.className} antialiased`}>
     <FlashToaster/>
+    <GoogleOAuthProvider clientId="1035405520449-ek7cscui3h4h538cpl8ta2hk1k5jr44u.apps.googleusercontent.com">
     <MainLayout>{children}</MainLayout>
+    </GoogleOAuthProvider>
       </body>
     </html>
   );

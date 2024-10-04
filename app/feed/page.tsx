@@ -1,20 +1,15 @@
-import { PostSocial } from '@/components/post';
+import {PostSocial} from '@/components/post';
 import {postService} from "@/services/post.service";
-import {getTweetStatusFromHtml, getTypeFromHtml} from "@/lib/utils";
 import {PostPagination} from "@/components/post-pagination";
+import {PostEnum} from "@/common/enum/app.enum";
 
 const handleFetchPosts = async () => {
   try {
-    const postsRes = await postService.getAllPosts(1,999)
+    const postsRes = await postService.getAllPostSocials(1)
     if(!postsRes) return {posts: [], metaData: null}
-    return {posts: postsRes.posts.filter(post => {
-        const type = getTypeFromHtml(post.html)
-        return type !== "Post"
-      }).filter(post => {
-        const tweetStatus = getTweetStatusFromHtml(post.html)
-        return tweetStatus === "Standard"
-      }), metaData: postsRes.meta}
+    return {posts: postsRes.posts, metaData: postsRes.meta}
   } catch (e) {
+    console.log(e)
     return {posts: [], metaData: null}
   }
 }
@@ -29,7 +24,7 @@ export default async function FeedPage() {
       {posts.map((post) => (
         <PostSocial key={post.title} post={post} />
       ))}
-      {metaData?.pagination && <PostPagination type="social" currentPost={posts} pagination={metaData.pagination}/>}
+      {metaData?.pagination && <PostPagination fetchPostsEnum={PostEnum.SOCIAL} pagination={metaData.pagination}/>}
     </div>
   );
 }

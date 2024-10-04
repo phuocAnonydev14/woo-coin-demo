@@ -9,3 +9,4 @@ export * from './CommentIcon';
 export * from './ShareIcon';
 export * from './CheckBadgeIcon';
 export * from './CommentLineIcon';
+export * from "./MailIcon"
