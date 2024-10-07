@@ -99,12 +99,11 @@ img {
   user-drag: none;
 }
 
-
 .bordered {
   display: inline-block;
   border-style: dashed;
-  border-image-source: url("https://i.sstatic.net/wLdVc.png");
+  border-image-source: url('https://i.sstatic.net/wLdVc.png');
   border-image-slice: 2;
   border-image-repeat: round;
-  border-image: url("https://i.sstatic.net/wLdVc.png") 2 round;
+  border-image: url('https://i.sstatic.net/wLdVc.png') 2 round;
 }

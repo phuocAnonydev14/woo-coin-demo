@@ -2,7 +2,7 @@
 
 import { headerMenus } from '@/const/menu';
 import { HeaderMenuBox } from '@/components/layouts/MainLayout/Header';
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useDetectScroll from '@smakss/react-scroll-direction';
 import { cn } from '@/lib/utils';
 import { useDebounceValue } from 'usehooks-ts';
@@ -29,7 +29,7 @@ export const HeaderMobile = (props: HeaderMobileProps) => {
 
   return (
     <div
-      style={{animationDuration:"200ms"}}
+      style={{ animationDuration: '200ms' }}
       className={cn(
         'fixed bottom-0 left-0 flex h-0 w-full justify-center bg-white',
         isShowMenu && 'animate__animated animate__fadeInUp h-[50px]',

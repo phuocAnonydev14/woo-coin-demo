@@ -1,10 +1,10 @@
 'use client';
 
-import {useState} from 'react';
+import { useState } from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import Carousel from 'react-multi-carousel';
-import {cn} from '@/lib/utils';
-import{Lightbox} from 'react-modal-image';
+import { cn } from '@/lib/utils';
+import { Lightbox } from 'react-modal-image';
 
 interface PostImageProps {
   images: string | string[];
@@ -12,8 +12,8 @@ interface PostImageProps {
 }
 
 export const PostImage = (props: PostImageProps) => {
-  const {images, isDetailPage} = props;
-  const [selectedImage,setSelectedImage] = useState('')
+  const { images, isDetailPage } = props;
+  const [selectedImage, setSelectedImage] = useState('');
 
   return (
     <div className="w-full overflow-hidden">
@@ -69,13 +69,13 @@ export const PostImage = (props: PostImageProps) => {
                   partialVisibilityGutter: 40,
                 },
                 tablet: {
-                  breakpoint: {max: 1024, min: 768},
+                  breakpoint: { max: 1024, min: 768 },
                   items: 2,
                   slidesToSlide: 1, // optional, default to 1.,
                   partialVisibilityGutter: 40,
                 },
                 mobile: {
-                  breakpoint: {max: 767, min: 100},
+                  breakpoint: { max: 767, min: 100 },
                   items: 2,
                   slidesToSlide: 1, // optional, default to 1.
                   partialVisibilityGutter: 10,
@@ -102,27 +102,29 @@ export const PostImage = (props: PostImageProps) => {
             </Carousel>
           </div>
         ))}
-      {selectedImage && <Lightbox
-        small={selectedImage}
-        large={selectedImage}
-        className={cn(
-          'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px]',
-          isDetailPage && 'h-auto w-full',
-        )}
-        hideDownload
-        hideZoom
-        // @ts-expect-error: no type for this attr
-        onClose={() => setSelectedImage('')}
-      />}
+      {selectedImage && (
+        <Lightbox
+          small={selectedImage}
+          large={selectedImage}
+          className={cn(
+            'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px]',
+            isDetailPage && 'h-auto w-full',
+          )}
+          hideDownload
+          hideZoom
+          // @ts-expect-error: no type for this attr
+          onClose={() => setSelectedImage('')}
+        />
+      )}
     </div>
   );
 };
 
 const ImgBox = ({
-                  image,
-                  isDetailPage,
-                  setToggler
-                }: {
+  image,
+  isDetailPage,
+  setToggler,
+}: {
   image: string;
   setToggler: () => void;
   isDetailPage?: boolean;
@@ -130,7 +132,7 @@ const ImgBox = ({
   return (
     <img
       className={cn(
-        'h-auto max-h-[350px] w-auto select-none rounded-[8px] object-cover lg:max-h-[400px] border-[1px] outline-[#00000026]',
+        'h-auto max-h-[350px] w-auto select-none rounded-[8px] border-[1px] object-cover outline-[#00000026] lg:max-h-[400px]',
         isDetailPage && 'h-auto w-full',
       )}
       onClick={setToggler}

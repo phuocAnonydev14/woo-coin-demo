@@ -6,8 +6,8 @@ import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 import { getCookie } from 'cookies-next';
 import axiosRetry from 'axios-retry';
 import { CacheRequestConfig, setupCache } from 'axios-cache-interceptor';
-import {HttpMethodEnum} from "@/common/enum/app.enum";
-import {Params} from "@/types/service.type";
+import { HttpMethodEnum } from '@/common/enum/app.enum';
+import { Params } from '@/types/service.type';
 
 class HttpService {
   private readonly http: AxiosInstance;
@@ -31,7 +31,7 @@ class HttpService {
 
   // Get authorization token for requests
   private get getAuthorization() {
-    const accessToken = getCookie("accessToken") || '';
+    const accessToken = getCookie('accessToken') || '';
     return accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
   }
 
@@ -46,7 +46,7 @@ class HttpService {
   private setupHeaders(hasAttachment = false, isPublicApi = false): AxiosRequestConfig['headers'] {
     const headers: AxiosRequestConfig['headers'] = {
       'Content-Type': hasAttachment ? 'multipart/form-data' : 'application/json',
-      "ngrok-skip-browser-warning":"any"
+      'ngrok-skip-browser-warning': 'any',
     };
 
     if (!isPublicApi) {
@@ -63,13 +63,13 @@ class HttpService {
     options: AxiosRequestConfig | CacheRequestConfig,
   ): Promise<T> {
     // eslint-disable-next-line no-useless-catch
-      const response: AxiosResponse<T> = await this.http.request<T>({
-        method,
-        url,
-        ...options,
-      });
-      console.log("response", response)
-      return response?.data;
+    const response: AxiosResponse<T> = await this.http.request<T>({
+      method,
+      url,
+      ...options,
+    });
+    console.log('response', response);
+    return response?.data;
   }
 
   // Perform GET request
@@ -85,7 +85,12 @@ class HttpService {
   }
 
   // Perform POST request
-  public async post<T, P>(url: string, payload: P, params?: Params, isPublicApi = false): Promise<T> {
+  public async post<T, P>(
+    url: string,
+    payload: P,
+    params?: Params,
+    isPublicApi = false,
+  ): Promise<T> {
     return this.request<T>(HttpMethodEnum.POST, url, {
       params,
       data: payload,
@@ -94,7 +99,12 @@ class HttpService {
   }
 
   // Perform UPDATE request
-  public async update<T, P>(url: string, payload: P, params?: Params, isPublicApi = false): Promise<T> {
+  public async update<T, P>(
+    url: string,
+    payload: P,
+    params?: Params,
+    isPublicApi = false,
+  ): Promise<T> {
     return this.request<T>(HttpMethodEnum.PATCH, url, {
       params,
       data: payload,

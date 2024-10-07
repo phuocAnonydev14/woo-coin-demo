@@ -1,4 +1,4 @@
-export enum HttpMethodEnum  {
+export enum HttpMethodEnum {
   GET = 'get',
   POST = 'post',
   PATCH = 'patch',
@@ -6,6 +6,6 @@ export enum HttpMethodEnum  {
 }
 
 export enum PostEnum {
-  DEFAULT = "defaults",
-  SOCIAL = "socials",
+  DEFAULT = 'defaults',
+  SOCIAL = 'socials',
 }

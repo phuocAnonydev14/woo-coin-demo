@@ -1,18 +1,18 @@
 export interface Post {
-  id: string,
-  uuid: string,
-  slug: string,
-  title: string
-  html: string, // html string
-  feature_image: string
-  visibility: boolean,
-  created_at: string,
-  updated_at: string,
-  published_at: string,
-  excerpt: string,
-  custom_excerpt?: string,
-  reading_time: number
-  tags: Tag[]
+  id: string;
+  uuid: string;
+  slug: string;
+  title: string;
+  html: string; // html string
+  feature_image: string;
+  visibility: boolean;
+  created_at: string;
+  updated_at: string;
+  published_at: string;
+  excerpt: string;
+  custom_excerpt?: string;
+  reading_time: number;
+  tags: Tag[];
 
   // expected field
   type?: 'social' | 'default';
@@ -31,23 +31,23 @@ export interface Post {
 }
 
 export interface MetaData {
-  pagination?: Pagination
+  pagination?: Pagination;
 }
 
 export interface Pagination {
-  page: number,
-  limit: number,
-  pages: number,
-  total: number,
-  next: number | null,
-  prev: number | null,
+  page: number;
+  limit: number;
+  pages: number;
+  total: number;
+  next: number | null;
+  prev: number | null;
 }
 
 export interface Tag {
-  id: string,
-  name: string,
-  slug: string,
-  description: string,
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
 }
 
 /*

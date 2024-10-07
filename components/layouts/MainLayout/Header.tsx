@@ -1,24 +1,24 @@
 'use client';
 
-import {Button} from '@/components/ui/button';
-import {headerMenus} from '@/const/menu';
-import {useEffect, useMemo, useState} from 'react';
-import {capitalize, cn} from '@/lib/utils';
-import {ArrowLeftIcon} from '@/components/icons';
-import {HeaderMenu} from '@/types/layout.type';
-import {usePathname, useRouter} from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { headerMenus } from '@/const/menu';
+import { useEffect, useMemo, useState } from 'react';
+import { capitalize, cn } from '@/lib/utils';
+import { ArrowLeftIcon } from '@/components/icons';
+import { HeaderMenu } from '@/types/layout.type';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import {HeaderMobile} from '@/components/layouts/MainLayout/HeaderMobile';
-import Image from "next/image";
-import logo from "@/components/assets/logo.png"
-import {LoginModal} from "@/components/auth/LoginModal";
+import { HeaderMobile } from '@/components/layouts/MainLayout/HeaderMobile';
+import Image from 'next/image';
+import logo from '@/components/assets/logo.png';
+import { LoginModal } from '@/components/auth/LoginModal';
 
 const backArrowFilter = ['/posts/'];
 
 export const Header = () => {
   const pathname = usePathname();
   const [selectedMenu, setSelectedMenu] = useState<string>(pathname || '/');
-  const router = useRouter()
+  const router = useRouter();
 
   const isShowBackArrow = useMemo(() => {
     let isShow = false;
@@ -40,14 +40,14 @@ export const Header = () => {
         <ArrowLeftIcon
           onClick={() => router.back()}
           className={cn(
-            'absolute top-[-19px] left-[4px] flex items-center justify-center rounded-[8px] opacity-0 transition',
+            'absolute left-[4px] top-[-19px] flex items-center justify-center rounded-[8px] opacity-0 transition',
             isShowBackArrow && 'cursor-pointer opacity-100',
           )}
         />
       </div>
       <div>
-        <Link href={"/"}>
-          <Image width={48} height={48} className="rounded-full" src={logo.src} alt="Wukoin logo"/>
+        <Link href={'/'}>
+          <Image width={48} height={48} className="rounded-full" src={logo.src} alt="Wukoin logo" />
         </Link>
       </div>
       <div className={cn('relative hidden w-[638px] items-center justify-center gap-4 md:flex')}>
@@ -74,7 +74,7 @@ export const Header = () => {
           <Button>Login</Button>
         </LoginModal>
         <div className="block md:hidden">
-          <HeaderMobile setSelectedMenu={setSelectedMenu} selectedMenu={selectedMenu}/>
+          <HeaderMobile setSelectedMenu={setSelectedMenu} selectedMenu={selectedMenu} />
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@ interface HeaderMenuBoxProps {
 export const HeaderMenuBox = (props: HeaderMenuBoxProps) => {
   const {
     isSelected,
-    menu: {icon: Icon, href},
+    menu: { icon: Icon, href },
     setSelectedMenu,
     isMobile,
   } = props;
@@ -104,14 +104,14 @@ export const HeaderMenuBox = (props: HeaderMenuBoxProps) => {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         className={cn(
-          'justify-left flex flex-col cursor-pointer items-center gap-2 rounded-[8px] px-[30px] py-[10px] transition',
+          'justify-left flex cursor-pointer flex-col items-center gap-2 rounded-[8px] px-[30px] py-[10px] transition',
           hover && 'bg-neutral-100',
           isMobile && 'px-[10px]',
         )}
         onClick={() => setSelectedMenu(href)}
       >
-        <Icon active={isSelected}/>
-        <p className={cn('font-medium text-[15px] text-neutral-400', isSelected && 'text-black')}>
+        <Icon active={isSelected} />
+        <p className={cn('text-[15px] font-medium text-neutral-400', isSelected && 'text-black')}>
           {!menuTitle ? 'Home' : capitalize(menuTitle)}
         </p>
       </div>

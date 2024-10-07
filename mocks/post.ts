@@ -1,5 +1,3 @@
-import {Post} from '@/types/app.type';
-
 export const mockPosts = [
   {
     title: 'Exploring TypeScript',
@@ -31,7 +29,7 @@ export const mockPosts = [
     image: [
       'https://plus.unsplash.com/premium_photo-1726619959838-4cc2d7137304?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D',
       'https://plus.unsplash.com/premium_photo-1677560517139-1836389bf843?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8',
-      'https://images.unsplash.com/photo-1725714354969-15e3f95fcb72?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxOHx8fGVufDB8fHx8fA%3D%3D'
+      'https://images.unsplash.com/photo-1725714354969-15e3f95fcb72?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxOHx8fGVufDB8fHx8fA%3D%3D',
     ],
     slug: 'introduction-to-nestjs',
     type: 'default',
