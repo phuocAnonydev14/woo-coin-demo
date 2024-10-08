@@ -20,7 +20,7 @@ export const PostSocial = (
   props: PostProps & { isComment?: boolean; CommentChild?: ReactNode },
 ) => {
   const { post, isDetailPage, CommentChild, isComment } = props;
-  const { excerpt, custom_excerpt, html } = post;
+  const { html } = post;
 
   const author = getAuthorFromHtml(html);
   const profileImage = getProfileImageFromHtml(html);
@@ -50,11 +50,9 @@ export const PostSocial = (
               </span>
               {/*<span className="text-neutral-600">by</span>*/}
               {/*<span className="cursor-pointer text-[15px] font-medium">{org}</span>*/}
-              {isComment && (
                 <span className="ml-2 text-sm text-neutral-600">
                   {moment(post.published_at).fromNow(true)}
                 </span>
-              )}
             </div>
             <div className="flex flex-col gap-3">
               {isDetailPage || isComment ? (
