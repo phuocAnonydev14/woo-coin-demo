@@ -36,7 +36,7 @@ class PostService extends HttpService {
   }
 
   async getPostDetail(slug: string) {
-    return this.get<{ posts: Post[] }>(`/content/posts/slug/${slug}`, { key: this.API_KEY });
+    return this.get<{ posts: Post[] }>(`/content/posts/slug/${slug}`, { key: this.API_KEY,include: 'tags' });
   }
 }
 
