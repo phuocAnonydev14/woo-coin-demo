@@ -35,7 +35,6 @@ export default function AdminLoginPage() {
   const handleLogin = async (values: z.infer<typeof formSchema>) => {
     try {
       const res = await adminService.login(values);
-      console.log('res', res);
       setCookie('access_token', res.data.token);
       router.push('/admin');
     } catch (e) {

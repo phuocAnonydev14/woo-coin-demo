@@ -15,6 +15,7 @@ class AdminService extends HttpService {
     super();
   }
   async login(params: LoginParams) {
+    await axios.post(`${BASE_URL}/admin/session`, params);
     return axios.post(`/api/login`, params);
   }
 

@@ -18,7 +18,7 @@ class HttpService {
     this.http = setupCache(
       axios.create({
         baseURL: customBaseUrl || this.baseURL,
-        withCredentials: false,
+        withCredentials: true,
         headers: this.setupHeaders(),
         timeout: 5000,
       }),
