@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fa0d695-10d6-4133-bc73-5c36e334eaf3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/admin/auth/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/admin/auth/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/admin.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/http.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/services/http.service.ts" afterDir="false" />
-    </list>
+    <list default="true" id="8fa0d695-10d6-4133-bc73-5c36e334eaf3" name="Changes" comment="feat: deploy" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,11 +63,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728894077390</updated>
-      <workItem from="1728894078462" duration="543000" />
+      <workItem from="1728894078462" duration="730000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: deploy">
+      <option name="closed" value="true" />
+      <created>1728894754669</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728894754669</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: deploy" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: deploy" />
   </component>
 </project>

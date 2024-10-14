@@ -49,6 +49,9 @@ class HttpService {
       'Content-Type': hasAttachment ? 'multipart/form-data' : 'application/json',
       'ngrok-skip-browser-warning': 'any',
       withCredentials: true,
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Credentials': 'true'
     };
 
     if (!isPublicApi) {
