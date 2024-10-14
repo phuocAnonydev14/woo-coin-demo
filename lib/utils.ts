@@ -25,8 +25,10 @@ export const getAuthorFromHtml = (html: string) => {
   return getDataMatchFromHtml(html, /<p>Authors:\s*([^<]*)<\/p>/);
 };
 
-export const getSourceFromHtml = (html: string) => {
-  return getDataMatchFromHtml(html, /<p>Source:\s*([^<]*)<\/p>/);
+export const getSourceFromHtml = (html: string, isLexical?: boolean) => {
+  return isLexical
+    ? getDataMatchFromHtml(html, /Source:\s*([^<]*)/)
+    : getDataMatchFromHtml(html, /<p>Source:\s*([^<]*)<\/p>/);
 };
 
 export const getIconFromHtml = (html: string) => {
@@ -49,6 +51,10 @@ export const getMediaLinkFromHtml = (html: string) => {
 
 export const getProfileImageFromHtml = (html: string) => {
   return getDataMatchFromHtml(html, /<p>Profile Image:\s*([^<]*)<\/p>/);
+};
+
+export const getSourceLinkFromHtml = (html: string) => {
+  return getDataMatchFromHtml(html, /<p>Source Link:\s*([^<]*)<\/p>/);
 };
 
 export const filterHtmlString = (html: string) => {
@@ -84,8 +90,29 @@ export const filterHtmlString = (html: string) => {
     if (p?.textContent?.includes('Profile Image:')) {
       p.remove(); // Remove the paragraph if it contains "Source:"
     }
+    if (p?.textContent?.includes('Source link:')) {
+      p.remove(); // Remove the paragraph if it contains "Source:"
+    }
   });
 
   // Get the updated HTML as string
   return doc.body.innerHTML.trim().replace(/https?:\/\/[^\s]+$/, '');
+};
+
+export const objectToQueryString = (queryParameters: Record<string, any>) => {
+  return queryParameters
+    ? Object.entries(queryParameters).reduce((queryString, [key, val], index) => {
+        const symbol = queryString.length === 0 ? '?' : '&';
+
+        if (Array.isArray(val)) {
+          val.forEach((item) => {
+            queryString += `${symbol}${key}=${item}`;
+          });
+        } else if (typeof val === 'string') {
+          queryString += `${symbol}${key}=${val}`;
+        }
+
+        return queryString;
+      }, '')
+    : '';
 };

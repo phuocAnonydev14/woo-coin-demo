@@ -5,7 +5,7 @@ import { headerMenus } from '@/const/menu';
 import { useEffect, useMemo, useState } from 'react';
 import { capitalize, cn } from '@/lib/utils';
 import { ArrowLeftIcon } from '@/components/icons';
-import { HeaderMenu } from '@/types/layout.type';
+import { LayoutMenu } from '@/types/layout.type';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { HeaderMobile } from '@/components/layouts/MainLayout/HeaderMobile';
@@ -83,7 +83,7 @@ export const Header = () => {
 
 interface HeaderMenuBoxProps {
   isSelected: boolean;
-  menu: HeaderMenu;
+  menu: LayoutMenu;
   setSelectedMenu: (val: string) => void;
   isMobile?: boolean;
 }
@@ -112,7 +112,7 @@ export const HeaderMenuBox = (props: HeaderMenuBoxProps) => {
       >
         <Icon active={isSelected} />
         <p className={cn('text-[15px] font-medium text-neutral-400', isSelected && 'text-black')}>
-          {!menuTitle ? 'Home' : capitalize(menuTitle)}
+          {!menuTitle ? 'Hot news' : capitalize(menuTitle)}
         </p>
       </div>
     </Link>

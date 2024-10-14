@@ -35,8 +35,26 @@ class PostService extends HttpService {
     );
   }
 
+  async getAllPostArticles(page: number, limit?: number) {
+    return this.get<{ posts: Post[]; meta: MetaData }>(
+      '/content/posts',
+      {
+        key: this.API_KEY,
+        page,
+        limit: limit || this.PAGE_LIMIT,
+        include: 'tags',
+        order: 'published_at DESC',
+        filter: 'tag:expert',
+      },
+      true,
+    );
+  }
+
   async getPostDetail(slug: string) {
-    return this.get<{ posts: Post[] }>(`/content/posts/slug/${slug}`, { key: this.API_KEY,include: 'tags' });
+    return this.get<{ posts: Post[] }>(`/content/posts/slug/${slug}`, {
+      key: this.API_KEY,
+      include: 'tags',
+    });
   }
 }
 

@@ -1,7 +1,8 @@
-import {PostDefault, PostSocial} from '@/components/post';
+import { PostDefault, PostSocial } from '@/components/post';
 import { postService } from '@/services/post.service';
 import { Metadata, ResolvingMetadata } from 'next';
 import logo from '@/components/assets/logo.png';
+import { PostType } from '@/const/post.enum';
 
 type MetadataProps = {
   params: { slug: string };
@@ -31,8 +32,15 @@ export async function generateMetadata(
     description: post?.excerpt || '',
     openGraph: {
       images: [logo.src],
+      title: post?.title || '',
+      description: post?.excerpt || '',
     },
     icons: logo.src,
+    twitter: {
+      images: [logo.src],
+      title: post?.title || '',
+      description: post?.excerpt || '',
+    },
   };
 }
 
@@ -40,15 +48,13 @@ export default async function PostDetailPage({ params: { slug } }: { params: { s
   const currentPost = await handleFetchPostDetail(slug);
   if (!currentPost) return;
 
-  console.log('currentPost', currentPost.html);
-
   return (
     <div>
-      {currentPost.tags[0].name === "Post"
-      ?
+      {currentPost.tags[0].name === PostType.NEWS ? (
         <PostDefault post={currentPost} isDetailPage />
-      : <PostSocial post={currentPost} isDetailPage/>
-      }
+      ) : (
+        <PostSocial post={currentPost} isDetailPage />
+      )}
     </div>
   );
 }

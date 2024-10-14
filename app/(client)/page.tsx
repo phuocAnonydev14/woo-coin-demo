@@ -6,6 +6,7 @@ import { PostEnum } from '@/common/enum/app.enum';
 const handleFetchPosts = async () => {
   try {
     const postsRes = await postService.getAllPosts(1);
+    console.log('postsRes', postsRes);
     if (!postsRes) return { posts: [], metaData: null };
     return { posts: postsRes.posts, metaData: postsRes.meta };
   } catch (e) {

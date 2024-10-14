@@ -3,15 +3,16 @@ import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 // COOKIES
 
 // TYPES
-import { getCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import axiosRetry from 'axios-retry';
 import { CacheRequestConfig, setupCache } from 'axios-cache-interceptor';
 import { HttpMethodEnum } from '@/common/enum/app.enum';
 import { Params } from '@/types/service.type';
-
+import { BASE_URL } from '@/const/env-keys';
+import { jwtDecode } from 'jwt-decode';
 class HttpService {
   private readonly http: AxiosInstance;
-  private baseURL = process.env.NEXT_PUBLIC_BASE_URL || '';
+  private baseURL = BASE_URL;
 
   constructor(customBaseUrl?: string) {
     this.http = setupCache(
@@ -31,8 +32,8 @@ class HttpService {
 
   // Get authorization token for requests
   private get getAuthorization() {
-    const accessToken = getCookie('accessToken') || '';
-    return accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+    const accessToken = getCookie('access_token') || '';
+    return accessToken ? { Authorization: `Ghost ${accessToken}` } : {};
   }
 
   // Initialize service configuration
@@ -47,6 +48,7 @@ class HttpService {
     const headers: AxiosRequestConfig['headers'] = {
       'Content-Type': hasAttachment ? 'multipart/form-data' : 'application/json',
       'ngrok-skip-browser-warning': 'any',
+      withCredentials: true,
     };
 
     if (!isPublicApi) {
@@ -68,7 +70,6 @@ class HttpService {
       url,
       ...options,
     });
-    console.log('response', response);
     return response?.data;
   }
 
@@ -105,7 +106,7 @@ class HttpService {
     params?: Params,
     isPublicApi = false,
   ): Promise<T> {
-    return this.request<T>(HttpMethodEnum.PATCH, url, {
+    return this.request<T>(HttpMethodEnum.PUT, url, {
       params,
       data: payload,
       headers: this.setupHeaders(payload instanceof FormData, isPublicApi),
@@ -123,9 +124,26 @@ class HttpService {
   // Inject interceptors for request and response
   private injectInterceptors() {
     // Set up request interceptor
-    this.http.interceptors.request.use((request) => {
+    // @ts-expect-error type error
+    this.http.interceptors.request.use(async (request: AxiosRequestConfig) => {
       // @TODO: implement an NProgress
-      return request;
+      if (!request?.url?.includes('/admin')) return request;
+      const currentToken = getCookie('access_token') || '';
+      if (!currentToken) {
+        return request;
+      }
+      const decodedHeader = jwtDecode(currentToken);
+      // if (Math.floor(new Date().getTime() / 1000) >= decodedHeader.exp!) {
+      const newToken = await axios.post('/api/login');
+      setCookie('access_token', newToken.data.token);
+      return {
+        ...request,
+        headers: {
+          Authorization: `Ghost ${newToken.data.token}`,
+          ...request.headers,
+        },
+      };
+      // }
     });
 
     // Retry logic with axios-retry
@@ -145,7 +163,7 @@ class HttpService {
       (response) => {
         return response;
       },
-      (error) => {
+      async (error) => {
         if (error.code === 'ECONNABORTED') {
           console.error('Request timed out');
         }
@@ -153,11 +171,14 @@ class HttpService {
         const statusCode = error.response.status;
         if (statusCode === 401) {
           console.warn('Unauthorized. Redirecting to home page...');
-          window.location.href = '/';
+          // window.location.href = '/';
         }
 
         if (statusCode === 403) {
           console.warn('Forbidden access');
+          if (window.location.pathname.includes('/admin')) {
+            window.location.href = '/admin/auth/login';
+          }
         }
 
         if (statusCode === 500) {

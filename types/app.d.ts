@@ -1,3 +1,5 @@
+declare module '@tryghost/admin-api';
+
 interface TelegramOptions {
   bot_id: string;
   request_access?: string;
